@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div style="margin-top:80px">
+    <div class="col-xs-3 pull-left" >
+        <img src="~/images/movie.jpg" alt="Movies" width="280" />
+    </div>
+    <div class="pull-right col-xs-9" style="color:black" >
+        <h4>Browse through movies from @Html.ActionLink("FilmWorld Movies", "Index", "FilmWorldMovies") or @Html.ActionLink("CinemaWorld Movies", "Index", "CinemaWorldMovies")</h4>
+        <h4>Exclusive @Html.ActionLink("Cheaper deals", "Index", "MovieDeals") to purchase movies</h4>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Movies.Models.Movie>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>All available Movies</title>
+    @Styles.Render("~/Content/bootstrap.css")
+</head>
+<body>
+    <div class="row" style="margin-top:80px">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-lg-4 col-md-4 col-sm-6" style="margin-top:10px">
+                <div class="thumbnails">
+                    @*<img src="@item.Poster" alt="@item.Title" height="150" />*@
+                    <img class="submit" onclick="location.href ='@Url.Action("Index", "AllMovies",new {selectedMovie = @item.Title })'" src="@item.Poster" alt="@item.Title" height="150" />
+                    <div class="captions">
+                        <b>@item.Title (@item.Year)</b>
+                        
+                    </div>
+                </div>
+                <button data-toggle="collapse" data-target="#@item.Id">More</button>
+
+                <div id="@item.Id" class="collapse">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Runtime
+                        </dt>
+
+                        <dd>
+                            @item.Runtime
+                        </dd>
+                        <dt>
+                            Released
+                        </dt>
+
+                        <dd>
+                            @item.Released
+                        </dd>
+                        <dt>
+                            Rating
+                        </dt>
+
+                        <dd>
+                            @item.Rating
+                        </dd>
+                        <dt>
+                            Director
+                        </dt>
+
+                        <dd>
+                            @item.Director
+                        </dd>
+
+
+                    </dl>
+                </div>
+            </div>
+
+
+
+            
+
+
+        }
+
+
+    </div>
+</body>
+</html>

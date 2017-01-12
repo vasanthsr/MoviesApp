@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Movies.Models.Movie>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cinema World Movies</title>
+    @Styles.Render("~/Content/bootstrap.css")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.col-xs-2').click(function () {                
+                $(".explanation").slideUp().remove();
+                var $desc = $("<div/>", {
+                    class: 'explanation row'
+                }); //it can contain a close button like the others.
+                $desc.html($(this).find('.hidden').html());
+                $(this).closest('.row').after($desc).slideDown();
+            });
+        });
+    </script>
+    <style>
+        img {cursor:pointer}
+        /*.col-xs-4 {
+  border: 1px solid black;
+}
+.col-xs-12 {
+  border: 1px solid black;
+}*/
+.hidden {
+  display: none;
+}
+h6{font-style:italic}
+.center-block{
+    
+    padding:10px;
+    background-color:lightgray;
+    
+}
+    </style>
+</head>
+<body>
+    
+    <div class="row" style="margin-top:50px">
+        <h3>CinemaWorld Movies</h3>
+        <h6>Click on the movie image to preview</h6>
+
+        @{int i = 0;}
+        @foreach (var item in Model)
+        {
+            if (i % 6 == 0)
+            {
+                @: </div>
+
+                @:<div class="row" style="margin-top:20px">
+                }
+                <div class="col-xs-2">
+                    <div class="row">
+                        <img src="@item.Poster" alt="@item.Title" height="180" width="150" title="Click to preview" />
+                    </div>
+                        <div class="row">
+                            <h5>@item.Title</h5>
+                        </div>
+                                            
+                    <div class='desc hidden' style="margin-top:10px">
+                        <div class="container-fluid center-block" style="margin-top:10px">
+                            <div class="row">
+                                <div>
+                                    <div class="col-xs-2">
+                                        <img style="float:left" src="@item.Poster" alt="@item.Title" height="180" width="150" title="Click to preview" />
+                                    </div>
+                                    <div class="col-xs-5 pull-left">
+                                        <div>
+                                            <span style="float:left;margin-left:50px;font-weight:bold">@item.Year</span>
+                                            <span style="float:left;margin-left:50px;">@item.Language</span>
+                                            <span style="float:left;margin-left:50px;color:red">@item.Rating</span>
+                                            <span style="float:left;margin-left:50px">@item.Runtime</span>
+                                            
+                                        </div>
+                                        <div class="pull-left hidden-xs hidden-sm" >
+                                            <b>Plot</b>
+                                            <p>@item.Plot</p>
+                                         </div>
+                                        
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button style="float:left;border-radius:2px" class="btn-primary">$ @item.Price Buy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        </div>
+                </div>
+                
+
+                i = i + 1;
+           }
+     </div>
+</body>
+</html>

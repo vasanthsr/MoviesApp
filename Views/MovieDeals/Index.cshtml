@@ -1,0 +1,80 @@
+﻿@model Movies.Models.Movie
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <title>Index</title>
+    
+    
+</head>
+<body>
+    
+    <div style="margin-top:80px">
+        
+        <p>Please search a movie to find the cheapest price. Search part or full movie name </p>
+        <form method="post" action="@Url.Action("Index","MovieDeals")">
+            <input type="text" id="search" name="search" />
+            <input type="submit" value="Search" />
+        </form>
+        
+        
+        @if (Model != null && !String.IsNullOrEmpty(Model.Title))
+        {
+            <hr />
+            <div class="row">
+                Best deal offered by : <span style="font-weight:bold">@Html.DisplayFor(model => model.MovieProvider)</span>
+            </div>
+                
+                    <div class="row" style="margin-top:20px">
+                        <div>
+                            <div class="col-xs-2">
+                                <img style="float:left" src="@Html.DisplayFor(model => model.Poster)" alt="@Html.DisplayFor(model => model.Title)" height="180" width="150" title="Click to preview" />
+                            </div>
+                            
+                            <div class="col-xs-5 pull-left">
+                                <div>
+                                    <h4>@Html.DisplayFor(model => model.Title)</h4>
+                                    <button style="float:left;margin-left:5px;border-radius:2px" class="btn-primary">$ @Html.DisplayFor(model => model.Price) Buy</button>
+                                </div>
+                                <div>
+                                    <span style="float:left;margin-left:50px;font-weight:bold">@Html.DisplayFor(model => model.Year)</span>
+                                    <span style="float:left;margin-left:50px;">@Html.DisplayFor(model => model.Language)</span>
+                                    <span style="float:left;margin-left:50px;color:red">@Html.DisplayFor(model => model.Rating)</span>
+                                    
+
+                                </div>
+                                <div class="pull-left hidden-xs hidden-sm">
+                                    <b>Plot</b>
+                                    <p>@Html.DisplayFor(model => model.Plot)</p>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+
+        }
+        else
+        {
+            if (ViewData["NoMovie"] != null)
+            {
+                <div id="divNotFound" style="color:red; margin-top:10px">Movie not found. Please search for a different movie</div>
+            }
+
+        }
+
+        
+               
+
+            
+    </div>
+    
+</body>
+</html>
