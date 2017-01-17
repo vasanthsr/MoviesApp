@@ -18,7 +18,7 @@
     
     <div style="margin-top:80px">
         
-        <p>Please search a movie to find the cheapest price. Search part or full movie name </p>
+        <p>Please search a movie to find the cheapest price. Search part or full movie name. For example New hope, Return </p>
         <form method="post" action="@Url.Action("Index","MovieDeals")">
             <input type="text" id="search" name="search" />
             <input type="submit" value="Search" />
@@ -41,7 +41,7 @@
                             <div class="col-xs-5 pull-left">
                                 <div>
                                     <h4>@Html.DisplayFor(model => model.Title)</h4>
-                                    <button style="float:left;margin-left:5px;border-radius:2px" class="btn-primary">$ @Html.DisplayFor(model => model.Price) Buy</button>
+                                    <button style="float:left;margin-left:5px;border-radius:2px" class="btn-primary">Buy ($ @Html.DisplayFor(model => model.Price))</button>
                                 </div>
                                 <div>
                                     <span style="float:left;margin-left:50px;font-weight:bold">@Html.DisplayFor(model => model.Year)</span>
@@ -50,10 +50,10 @@
                                     
 
                                 </div>
-                                <div class="pull-left hidden-xs hidden-sm">
+                                @*<div class="pull-left hidden-xs hidden-sm">
                                     <b>Plot</b>
                                     <p>@Html.DisplayFor(model => model.Plot)</p>
-                                </div>
+                                </*@div>
 
                             </div>
                             

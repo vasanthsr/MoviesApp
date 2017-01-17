@@ -14,22 +14,26 @@ namespace Movies.Controllers
     [HandleError(ExceptionType = typeof(ArithmeticException), View = "Error")]
     [HandleError(ExceptionType = typeof(ArgumentNullException), View = "Error")]
     [HandleError(ExceptionType = typeof(NullReferenceException), View = "Error")]
+    
     public class CinemaWorldMoviesController : Controller
     {
+        List<Movie> lstMovies = new List<Movie>();
         //Fetch all movies provided by CinemaWorld
         public ActionResult Index()
         {
             
-            List<Movie> lstMovies = new List<Movie>();
+            //List<Movie> lstMovies = new List<Movie>();
             lstMovies = Common.Common.GetMoviesFromWebAPI("CinemaWorld");
             return View(lstMovies);
         }
 
         // GET: Movie/Details/5
-        public ActionResult Details(int id)
+        public PartialViewResult Details(string id)
         {
-            return View();
+            return this.PartialView("_details", this.lstMovies.First(x => x.Id == id));
         }
+
+       
         
     }
 }

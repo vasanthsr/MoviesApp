@@ -85,4 +85,3 @@ C:\Users\Vasanth\Documents\Visual Studio 2015\Projects\WebJet\MoviesWebApp\bin\M
 C:\Users\Vasanth\Documents\Visual Studio 2015\Projects\WebJet\MoviesWebApp\bin\Movies.pdb
 C:\Users\Vasanth\Documents\Visual Studio 2015\Projects\WebJet\MoviesWebApp\obj\Debug\Movies.dll
 C:\Users\Vasanth\Documents\Visual Studio 2015\Projects\WebJet\MoviesWebApp\obj\Debug\Movies.pdb
-C:\Users\Vasanth\Documents\Visual Studio 2015\Projects\WebJet\MoviesWebApp\obj\Debug\Movies.csprojResolveAssemblyReference.cache

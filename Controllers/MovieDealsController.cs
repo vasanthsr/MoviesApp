@@ -42,15 +42,16 @@ namespace Movies.Controllers
             {
                 if (searchedMovieFilmWorld != null)
                 {
-                    if (searchedMovieCinemaWorld.Price > searchedMovieFilmWorld.Price)
-                    {
-                        cheapestMovieProvider = searchedMovieFilmWorld;
+                    cheapestMovieProvider = searchedMovieCinemaWorld;
+                    //if (searchedMovieCinemaWorld.Price > searchedMovieFilmWorld.Price)
+                    //{
+                    //    cheapestMovieProvider = searchedMovieFilmWorld;
 
-                    }
-                    else
-                    {
-                        cheapestMovieProvider = searchedMovieCinemaWorld;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    cheapestMovieProvider = searchedMovieCinemaWorld;
+                    //}
 
                 }
                 else

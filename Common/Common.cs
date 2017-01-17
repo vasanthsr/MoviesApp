@@ -1,5 +1,6 @@
 ﻿using Movies.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,27 +19,99 @@ namespace Movies.Common
             List<Movie> lstMovies = new List<Movie>();
             using (var client = new HttpClient())
             {
-                //client.BaseAddress = new Uri("http://webjetapitest.azurewebsites.net/"); //webapi provided by webjet as sample
-                //client.BaseAddress = new Uri("http://localhost:62359/");
-                client.BaseAddress = new Uri("http://alertvmprod.cloudapp.net/MoviesWebApi/");
+                client.BaseAddress = new Uri("http://webjetapitest.azurewebsites.net/"); //webapi provided by webjet as sample
+                
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //client.DefaultRequestHeaders.Add("x-access-token", "sjd1HfkjU83ksdsm3802k"); //access token provided by webjet to access the sample
-                var response = client.GetAsync("api/" + movieProvider + "movies").Result;
+                client.DefaultRequestHeaders.Add("x-access-token", "sjd1HfkjU83ksdsm3802k"); //access token provided by webjet to access the sample
+                var response = client.GetAsync("api/" + movieProvider + "/movies").Result;
                 if (response.IsSuccessStatusCode)
                 {
+   
+                    //Read response content result into string variable
+                    var strJson = response.Content.ReadAsStringAsync().Result;
 
-                    var responseData = response.Content.ReadAsStringAsync().Result;
-                    var moviesList = JsonConvert.DeserializeObject<List<Movie>>(responseData); //Deserialize the object and assign to List
+                    var moviesList = JObject.Parse(strJson).SelectToken("Movies").ToObject<List<Movie>>();
+
                     foreach (var item in moviesList)
                     {
                         Movie movie = new Movie();
                         item.MovieProvider = movieProvider;
+                        //Assumption - Set price for movies as API did not have price
+                        
+                        switch (movieProvider)
+                        {
+                            case "FilmWorld":
+                                {
+                                    item.Price = 5;
+                                    break;
+                                }
+                            case "CinemaWorld":
+                                {
+                                    item.Price = 4;
+                                    break;
+                                }
+                            default:
+                                {
+                                    item.Price = 6;
+                                    break;
+                                }
+                        }
+                        
                     }
+                    
+
+                    
                     lstMovies = moviesList;
                 }
             }
             return lstMovies;
+        }
+
+        public static Movie GetMovieFromWebAPI(string id, string movieProvider)
+        {
+            Movie reqMovie = new Movie();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://webjetapitest.azurewebsites.net/"); //webapi provided by webjet as sample
+
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("x-access-token", "sjd1HfkjU83ksdsm3802k"); //access token provided by webjet to access the sample
+                var response = client.GetAsync("api/" + movieProvider + "/movie/" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+
+                    //Read response content result into string variable
+                    var strJson = response.Content.ReadAsStringAsync().Result;
+
+                    reqMovie = JsonConvert.DeserializeObject<Movie>(strJson);
+
+                    reqMovie.MovieProvider = movieProvider;
+                    switch (movieProvider)
+                    {
+                        case "FilmWorld":
+                            {
+                                reqMovie.Price = 5;
+                                break;
+                            }
+                        case "CinemaWorld":
+                            {
+                                reqMovie.Price = 4;
+                                break;
+                            }
+                        default:
+                            {
+                                reqMovie.Price = 6;
+                                break;
+                            }
+                    }
+
+
+
+                }
+            }
+            return reqMovie;
         }
     }
 }
