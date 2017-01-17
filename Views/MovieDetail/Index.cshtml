@@ -1,0 +1,35 @@
+﻿@model Movies.Models.Movie
+
+<div class="container-fluid center-block" style="margin-top:80px">
+    <div class="row">
+        <div>
+            <div class="col-xs-2">
+                <img style="float:left" src="@Html.DisplayFor(model => model.Poster)" alt="@Html.DisplayFor(model => model.Title)" height="180" width="150" title="Click to preview" />
+            </div>
+            <div class="col-xs-5 pull-left">
+                <div>
+                    <span style="float:left;font-weight:bold">@Html.DisplayFor(model => model.Year)</span>
+                    <span style="float:left;margin-left:50px;">@Html.DisplayFor(model => model.Language)</span>
+                        <span style="float:left;margin-left:50px;color:red">@Html.DisplayFor(model => model.Rating)</span>
+                        <span style="float:left;margin-left:50px">@Html.DisplayFor(model => model.Runtime)</span>
+
+                </div>
+                <div class="pull-left hidden-xs hidden-sm">
+                    <p>Plot</p>
+                    <p>@Html.DisplayFor(model => model.Plot)</p>
+                </div>
+
+            </div>
+            
+            <div class="col-xs-2">
+                <button style="float:left;border-radius:2px" class="btn-primary">Buy ($ @Html.DisplayFor(model => model.Price))</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p style="margin-top:10px">
+    
+    @Html.ActionLink("Back to List", "Index","CinemaWorldMovies")
+</p>
