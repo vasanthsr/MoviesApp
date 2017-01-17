@@ -34,35 +34,42 @@ namespace Movies.Controllers
             //Fetch movie from cinema world and film world and check who provides cheapest and retun the object
             Movie searchedMovieCinemaWorld = lstMoviesCinemaWorld.FirstOrDefault(p => p.Title.ToLower().Contains(search.ToLower()));
             Movie searchedMovieFilmWorld = lstMoviesFilmWorld.FirstOrDefault(p => p.Title.ToLower().Contains(search.ToLower()));
-
-            
             Movie cheapestMovieProvider = new Movie();
 
-            if (searchedMovieCinemaWorld != null)
+            try
             {
-                if (searchedMovieFilmWorld != null)
+                
+
+                if (searchedMovieCinemaWorld != null)
                 {
-                    cheapestMovieProvider = searchedMovieCinemaWorld;
-                    //if (searchedMovieCinemaWorld.Price > searchedMovieFilmWorld.Price)
-                    //{
-                    //    cheapestMovieProvider = searchedMovieFilmWorld;
+                    if (searchedMovieFilmWorld != null)
+                    {
+                        cheapestMovieProvider = searchedMovieCinemaWorld;
+                        if (searchedMovieCinemaWorld.Price > searchedMovieFilmWorld.Price)
+                        {
+                            cheapestMovieProvider = searchedMovieFilmWorld;
 
-                    //}
-                    //else
-                    //{
-                    //    cheapestMovieProvider = searchedMovieCinemaWorld;
-                    //}
+                        }
+                        else
+                        {
+                            cheapestMovieProvider = searchedMovieCinemaWorld;
+                        }
 
+                    }
+                    else
+                    {
+                        cheapestMovieProvider = searchedMovieCinemaWorld;
+                    }
                 }
                 else
                 {
-                    cheapestMovieProvider = searchedMovieCinemaWorld;
+                    cheapestMovieProvider = null;
+                    ViewData["NoMovie"] = true;
                 }
             }
-            else
+            catch(Exception ex)
             {
-                cheapestMovieProvider = null;
-                ViewData["NoMovie"] = true;
+                return View("Error");
             }
 
             return View(cheapestMovieProvider);

@@ -19,7 +19,15 @@ namespace Movies.Controllers
         public ActionResult Index()
         {
             List<Movie> lstMovies = new List<Movie>();
-            lstMovies = Common.Common.GetMoviesFromWebAPI("FilmWorld");                       
+            try
+            {
+                
+                lstMovies = Common.Common.GetMoviesFromWebAPI("FilmWorld");
+            }
+            catch(Exception ex)
+            {
+                return View("Error");
+            }
             return View(lstMovies);
         }        
 

@@ -21,9 +21,16 @@ namespace Movies.Controllers
         //Fetch all movies provided by CinemaWorld
         public ActionResult Index()
         {
-            
-            //List<Movie> lstMovies = new List<Movie>();
-            lstMovies = Common.Common.GetMoviesFromWebAPI("CinemaWorld");
+
+            try
+            {
+                //List<Movie> lstMovies = new List<Movie>();
+                lstMovies = Common.Common.GetMoviesFromWebAPI("CinemaWorld");
+            }
+            catch(Exception ex)
+            {
+                return View("Error");
+            }
             return View(lstMovies);
         }
 

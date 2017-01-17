@@ -11,12 +11,17 @@ using System.Web.Mvc;
 
 namespace Movies.Common
 {
+    [HandleError(ExceptionType = typeof(ArithmeticException), View = "Error")]
+    [HandleError(ExceptionType = typeof(ArgumentNullException), View = "Error")]
+    [HandleError(ExceptionType = typeof(NullReferenceException), View = "Error")]
     public static class Common
     {
         //Common functions that can be reused
         public static List<Movie> GetMoviesFromWebAPI(string movieProvider)
         {
             List<Movie> lstMovies = new List<Movie>();
+            
+            
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://webjetapitest.azurewebsites.net/"); //webapi provided by webjet as sample
@@ -65,6 +70,7 @@ namespace Movies.Common
                     lstMovies = moviesList;
                 }
             }
+
             return lstMovies;
         }
 
@@ -113,5 +119,6 @@ namespace Movies.Common
             }
             return reqMovie;
         }
+        
     }
 }
